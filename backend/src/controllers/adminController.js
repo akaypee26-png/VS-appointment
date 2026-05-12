@@ -2,7 +2,7 @@ const Appointment = require('../models/Appointment');
 const Block = require('../models/Block');
 const User = require('../models/User');
 const slotService = require('../services/slotService');
-const emailService = require('../services/emailService');
+// Email service removed. In-app notifications will be used.
 
 exports.getAllAppointments = async (req, res) => {
   try {
@@ -82,7 +82,7 @@ exports.rescheduleAppointmentAdmin = async (req, res) => {
     // Send email to patient
     const patient = await User.findById(appointment.patientId);
     if (patient) {
-      await emailService.sendAppointmentReschedule(patient, oldAppointment, appointment);
+      // TODO: Add in-app notification for admin reschedule
     }
 
     res.status(200).json({ success: true, message: 'Appointment rescheduled successfully' });
@@ -114,7 +114,7 @@ exports.cancelAppointmentAdmin = async (req, res) => {
     // Send email to patient
     const patient = await User.findById(appointment.patientId);
     if (patient) {
-      await emailService.sendAppointmentCancellation(patient, appointment, reason, 'doctor');
+      // TODO: Add in-app notification for admin cancel
     }
 
     res.status(200).json({ success: true, message: 'Appointment cancelled successfully' });
@@ -172,7 +172,7 @@ exports.blockFullDay = async (req, res) => {
       // Send cancellation email
       const patient = await User.findById(apt.patientId);
       if (patient) {
-        await emailService.sendAppointmentCancellation(patient, apt, `Clinic blocked: ${reason}`, 'system');
+        // TODO: Add in-app notification for clinic blocked
       }
     }
 
@@ -233,7 +233,7 @@ exports.blockTimeRange = async (req, res) => {
         // Send cancellation email
         const patient = await User.findById(apt.patientId);
         if (patient) {
-          await emailService.sendAppointmentCancellation(patient, apt, `Time range blocked: ${reason}`, 'system');
+          // TODO: Add in-app notification for time range blocked
         }
       }
     }

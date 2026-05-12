@@ -1,6 +1,6 @@
 const Appointment = require('../models/Appointment');
 const slotService = require('../services/slotService');
-const emailService = require('../services/emailService');
+// Email service removed. In-app notifications will be used.
 const { validationResult } = require('express-validator');
 
 exports.getAvailableSlots = async (req, res) => {
@@ -74,8 +74,7 @@ exports.bookAppointment = async (req, res) => {
 
     await appointment.save();
 
-    // Send confirmation email
-    await emailService.sendAppointmentConfirmation(req.user, appointment);
+    // TODO: Add in-app notification for appointment booked
 
     res.status(201).json({
       success: true,
@@ -155,7 +154,7 @@ exports.cancelAppointment = async (req, res) => {
     await appointment.save();
 
     // Send cancellation email
-    await emailService.sendAppointmentCancellation(req.user, appointment, reason, 'patient');
+    // TODO: Add in-app notification for appointment cancelled
 
     res.status(200).json({ success: true, message: 'Appointment cancelled successfully' });
   } catch (error) {
@@ -227,7 +226,7 @@ exports.rescheduleAppointment = async (req, res) => {
     await appointment.save();
 
     // Send reschedule email
-    await emailService.sendAppointmentReschedule(req.user, oldAppointment, appointment);
+    // TODO: Add in-app notification for appointment rescheduled
 
     res.status(200).json({ success: true, message: 'Appointment rescheduled successfully' });
   } catch (error) {

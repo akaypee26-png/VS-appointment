@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const Appointment = require('../models/Appointment');
-const emailService = require('../services/emailService');
+// Email service removed. In-app notifications will be used.
 
 exports.getProfile = async (req, res) => {
   try {
@@ -92,8 +92,7 @@ exports.deleteAccount = async (req, res) => {
       apt.cancellationReason = 'Patient account deleted';
       await apt.save();
 
-      // Send cancellation email
-      await emailService.sendAppointmentCancellation(user, apt, 'Account deleted', 'system');
+      // TODO: Add in-app notification for account deleted
     }
 
     res.status(200).json({
