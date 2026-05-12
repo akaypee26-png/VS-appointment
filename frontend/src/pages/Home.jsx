@@ -1,37 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { Button } from '../Common/index';
+//import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
+//import { Button } from '../Common/index';
+import { Button } from '../components/Common';
 
 export const Home = () => {
   const { isAuthenticated, isDoctor } = useAuth();
 
   return (
-    <div className="bg-white">
+    <div className="bg-medical-light min-h-screen text-clinical-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Professional Clinic Appointment Booking</h1>
-          <p className="text-xl mb-8 opacity-90">
-            Easy, fast, and secure appointment scheduling for modern healthcare
-          </p>
-          <div className="flex justify-center space-x-4">
-            {!isAuthenticated ? (
-              <>
-                <Link to="/login">
-                  <Button className="bg-white text-blue-600 hover:bg-gray-100">Login</Button>
+      <section className="bg-gradient-to-r from-medical-main to-medical-dark text-white py-24 px-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Clinic Care — Modern, Trusted Healthcare</h1>
+            <p className="text-lg mb-6 opacity-95">Schedule appointments easily, manage patients, and run your clinic with confidence.</p>
+
+            <div className="flex gap-4">
+              {!isAuthenticated ? (
+                <>
+                  <Link to="/login">
+                    <Button className="bg-[#0A4173] text-medical-dark hover:bg-gray-100">Login</Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button className="bg-[#0A4173] text-medical-dark hover:bg-gray-100">Get Started</Button>
+                  </Link>
+                </>
+              ) : (
+                <Link to={isDoctor ? '/admin/dashboard' : '/dashboard'}>
+                  <Button className="bg-medical-light text-medical-dark hover:bg-gray-100">Go to Dashboard</Button>
                 </Link>
-                <Link to="/register">
-                  <Button className="bg-yellow-500 text-blue-600 hover:bg-yellow-400">Get Started</Button>
-                </Link>
-              </>
-            ) : (
-              <Link to={isDoctor ? '/admin/dashboard' : '/dashboard'}>
-                <Button className="bg-white text-blue-600 hover:bg-gray-100">
-                  Go to Dashboard
-                </Button>
-              </Link>
-            )}
+              )}
+            </div>
+          </div>
+
+          <div className="bg-[#004B8D] rounded-lg shadow-medical p-8">
+            <div className="text-center">
+              <div className="text-5xl">⚕</div>
+              <h3 className="text-xl font-semibold mt-4">Book with confidence</h3>
+              <p className=" mt-2">Transparent scheduling, secure data, and helpful reminders inside the app.</p>
+            </div>
+
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="p-4 border rounded bg-[#0A4173]">
+                <div className="font-semibold">30 min slots</div>
+                <div className="text-sm ">Balanced schedule for care & reviews</div>
+              </div>
+              <div className="p-4 border rounded bg-[#0A4173]">
+                <div className="font-semibold">Mon-Fri clinic</div>
+                <div className="text-sm ">Operational weekdays, best for continuity</div>
+              </div>
+              <div className="p-4 border rounded bg-[#0A4173]">
+                <div className="font-semibold">2hr cancel window</div>
+                <div className="text-sm">Protects both clinicians and patients</div>
+              </div>
+              <div className="p-4 border rounded bg-[#0A4173]">
+                <div className="font-semibold">In-app notifications</div>
+                <div className="text-sm">Real-time updates inside the patient portal</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -39,109 +67,30 @@ export const Home = () => {
       {/* Features Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Why Clinics Choose Clinic Care</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                title: 'Instant Booking',
-                description: 'Book appointments instantly with real-time slot availability',
-                icon: '⚡',
-              },
-              {
-                title: 'Secure & Safe',
-                description: 'Your data is protected with enterprise-grade security',
-                icon: '🔒',
-              },
-              {
-                title: 'Flexible',
-                description: 'Reschedule or cancel appointments anytime with ease',
-                icon: '📱',
-              },
-              {
-                title: 'Notifications',
-                description: 'Get instant email notifications for all your appointments',
-                icon: '📧',
-              },
-              {
-                title: 'Professional',
-                description: 'Run your clinic like a pro with our admin dashboard',
-                icon: '👨‍⚕️',
-              },
-              {
-                title: 'Easy to Use',
-                description: 'Intuitive interface that anyone can use without training',
-                icon: '✨',
-              },
-            ].map((feature, idx) => (
-              <div key={idx} className="bg-blue-50 rounded-lg p-6 text-center">
-                <div className="text-4xl mb-3">{feature.icon}</div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+              { title: 'Reliable Scheduling', desc: 'Deterministic slot generation to avoid conflicts', icon: '📅' },
+              { title: 'Patient Management', desc: 'Patient profiles, history, and contactless updates', icon: '👥' },
+              { title: 'Admin Controls', desc: 'Emergency blocks, rescheduling, and reporting', icon: '🛠️' },
+              { title: 'Secure Data', desc: 'Password hashing and encrypted tokens', icon: '🔒' },
+              { title: 'Responsive UI', desc: 'Mobile-first layout for patients on the go', icon: '📱' },
+              { title: 'In-App Notifications', desc: 'Immediate updates without email', icon: '🔔' },
+            ].map((f, i) => (
+              <div key={i} className="bg-white rounded-lg p-6 shadow-medical">
+                <div className="text-3xl mb-3">{f.icon}</div>
+                <h3 className="font-semibold mb-2">{f.title}</h3>
+                <p className="text-gray-600">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Info Section */}
-      <section className="bg-gray-50 py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Clinic Information</h3>
-              <p className="text-gray-600 mb-4">
-                Our clinic is dedicated to providing professional healthcare services with modern technology.
-              </p>
-              <div className="space-y-4">
-                <div>
-                  <p className="font-semibold">📍 Address</p>
-                  <p className="text-gray-600">123 Medical Center, Your City</p>
-                </div>
-                <div>
-                  <p className="font-semibold">📞 Phone</p>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                </div>
-                <div>
-                  <p className="font-semibold">🕐 Clinic Hours</p>
-                  <p className="text-gray-600">Monday - Friday</p>
-                  <p className="text-gray-600">10:00 AM - 5:00 PM IST</p>
-                  <p className="text-gray-600">(Lunch: 1:00 PM - 2:00 PM)</p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Quick Facts</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center">
-                  <span className="text-blue-600 mr-3">✓</span>
-                  30-minute appointment slots
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-600 mr-3">✓</span>
-                  Book up to 30 days in advance
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-600 mr-3">✓</span>
-                  Cancel up to 2 hours before
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-600 mr-3">✓</span>
-                  Instant email confirmations
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-600 mr-3">✓</span>
-                  Professional support
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 px-4">
+      <footer className="bg-clinical-800 text-white py-8 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <p>&copy; 2026 Clinic Booking System. All rights reserved.</p>
+          <p>&copy; 2026 Clinic Care. All rights reserved.</p>
         </div>
       </footer>
     </div>

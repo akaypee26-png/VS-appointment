@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card } from '../Common/index';
+//import { Button, Card } from '../Common/index';
+import { Button, Card } from '../components/Common';
 
 export const NotFound = () => {
   return (

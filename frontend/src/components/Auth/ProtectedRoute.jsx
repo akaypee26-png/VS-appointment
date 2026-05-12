@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LoadingSpinner } from './index';
-
+//import { LoadingSpinner } from './index';
+import { LoadingSpinner } from '../Common';
 export const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { isAuthenticated, loading, isDoctor } = useAuth();
 
